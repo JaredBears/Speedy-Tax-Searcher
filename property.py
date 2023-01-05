@@ -1,6 +1,6 @@
-class ShelbyProperty:
-    def __init__(self):
-        self.parcelId = ""
+class Property:
+    def __init__(self, parcelId):
+        self.parcelId = parcelId
         self.address = ""
         self.city = ""
         self.subdivision = ""
@@ -9,8 +9,8 @@ class ShelbyProperty:
         self.owner = ""
         self.mailingStreet = ""
         self.mailingCity = ""
-        self.cityTaxes = 0.0
-        self.countyTaxes = 0.0
+        self.cityTaxes = -1.0
+        self.countyTaxes = -1.0
     def setParcelId(self, parcelId):
         self.parcelId = " ".join(parcelId.split())
     def setAddress(self, address):
@@ -64,7 +64,13 @@ class ShelbyProperty:
                 "Plat Book Page: " + self.platBookPage + "\n" + \
                 "Owner: " + self.owner + "\n" + \
                 "Mailing Line 1: " + self.mailingStreet + "\n" + \
-                "Mailing Line 2: " + self.mailingCity + "\n" + \
-                "City Taxes Due: $" + str(self.cityTaxes) + "\n" + \
-                "County Taxes Due: $" + str(self.countyTaxes) + "\n"
+                "Mailing Line 2: " + self.mailingCity + "\n"
+        if self.cityTaxes != -1.0:
+            value += "City Taxes: " + str(self.cityTaxes) + "\n"
+        else:
+            value += "City Taxes: Not Available\n"
+        if self.countyTaxes != -1.0:
+            value += "County Taxes: " + str(self.countyTaxes) + "\n"
+        else:
+            value += "County Taxes: Not Available\n"
         return value

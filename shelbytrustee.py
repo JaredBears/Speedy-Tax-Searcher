@@ -1,17 +1,18 @@
-import mechanicalsoup
-import datetime
+from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 class ShelbyTrustee:
-    browser = mechanicalsoup.Browser()
     url = "https://apps.shelbycountytrustee.com/TaxQuery/Inquiry.aspx?ParcelID="
 
     def searchProperty(self, property):
-        currentYear = datetime.datetime.now().year
-        parcel = property.getParcelId()
-        pin = parcel[0:6] + "00" + parcel[6:] + "0"
-        page = self.browser.get(self.url + pin)
-        html = page.soup
-        table = html.find_all("tr")[13]
-        taxes = float(table.find_all("td")[-1].text.strip()[1:])
-        property.setCountyTaxes(taxes)
+        try:
+            parcel = property.getParcelId()
+            pin = parcel[0:6] + "00" + parcel[6:] + "0"
+            page = urlopen(self.url + pin)
+            html = page.read().decode("utf-8")
+            soup = BeautifulSoup(html, "html.parser")
+            table = soup.find_all("tr")[13]
+            taxes = float(table.find_all("td")[-1].text.strip()[1:])
+            property.setCountyTaxes(taxes)
+        except:
+            property.setCountyTaxes(-1)
