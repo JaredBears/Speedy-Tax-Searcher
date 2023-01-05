@@ -2,12 +2,20 @@ import shelbyassessor
 import property
 
 def main():
-    parcelId = "06303400001"
-    county = "Shelby"
-    assessor = shelbyassessor.ShelbyAssessor()
-    prop = property.Property(parcelId, county)
-    assessor.searchProperty(prop)
-    print(prop)
+    while(True):
+        # state = input("Enter state (or exit to quit): ")
+        # if state.lower() == "exit":
+        #     break
+        # county = input("Enter county: ")
+        state = "TN"
+        county = "Shelby"
+        parcelId = input("Enter parcel ID (or exit to quit): ")
+        if parcelId.lower() == "exit":
+            break
+        assessor = shelbyassessor.ShelbyAssessor()
+        prop = property.Property(parcelId, state, county)
+        assessor.searchProperty(prop)
+        print(prop)
 
 
 main()

@@ -16,6 +16,8 @@ class ShelbyTrustee:
                 pin = parcel[0:6] + "00" + parcel[6:] + "0"
             elif parcel[0] == 'B':
                 pin = parcel[0:5] + "00" + parcel[5:] + "0"
+            elif parcel[0] == 'G':
+                pin = parcel[0:6] + "0" + parcel[6:] + "0"
             page = urlopen(self.url + pin)
             html = page.read().decode("utf-8")
             soup = BeautifulSoup(html, "html.parser")
@@ -25,7 +27,7 @@ class ShelbyTrustee:
         except:
             property.setCountyTaxes(-1)
     def test(self):
-        property = Property("B0149M00007", "Shelby")
+        property = Property("G0221EH00027", "Shelby")
         self.searchProperty(property)
         print(property.getCountyTaxes())
 

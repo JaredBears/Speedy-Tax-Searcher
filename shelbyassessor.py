@@ -4,12 +4,14 @@ from property import Property
 from shelbytrustee import ShelbyTrustee
 from memphistrustee import MemphisTrustee
 from bartletttrustee import BartlettTrustee
+from germantowntrustee import GermantownTrustee
 
 class ShelbyAssessor:
     url = "https://www.assessormelvinburgess.com/propertyDetails?parcelid="
     countyTrustee = ShelbyTrustee()
     memphisTrustee = MemphisTrustee()
     bartlettTrustee = BartlettTrustee()
+    germantownTrustee = GermantownTrustee()
 
     def searchProperty(self, property):
         try:
@@ -31,8 +33,10 @@ class ShelbyAssessor:
                 self.memphisTrustee.searchProperty(property)
             elif parcel[0] == 'B':
                 self.bartlettTrustee.searchProperty(property)
+            elif parcel[0] == 'G':
+                self.germantownTrustee.searchProperty(property)
         except:
-            property.setAddress("Error: Could not find property")
+            property.setNotes("Error: Could not find all property information\nPlease verify details.")
     def getAddress(self, table):
         return table[3].text.strip()
     def getCity(self, table):
@@ -51,13 +55,18 @@ class ShelbyAssessor:
         return table[29].text.strip()
 
     def test(self):
-        property = Property("06303400001", "Shelby")
-        self.searchProperty(property)
-        print(property)
+        memphis = Property("06303400001", "TN", "SHELBY")
+        self.searchProperty(memphis)
+        print(memphis)
 
-        propertyTwo = Property("B0149M00007", "Shelby")
-        self.searchProperty(propertyTwo)
-        print(propertyTwo)
+        bartlett = Property("B0149M00007", "TN", "SHELBY")
+        self.searchProperty(bartlett)
+        print(bartlett)
+
+        germantown = Property("G0221EH00027", "TN", "SHELBY")
+        self.searchProperty(germantown)
+        print(germantown)
+        
 
 # shelby = ShelbyAssessor()
 # shelby.test()
