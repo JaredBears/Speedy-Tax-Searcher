@@ -1,5 +1,9 @@
+from locale import atof, setlocale, LC_NUMERIC
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+from property import Property
+
+setlocale(LC_NUMERIC, 'English_United States.1252')
 
 class MemphisTrustee:
     url = "https://epayments.memphistn.gov/Property/Print.aspx?ParcelNo="
@@ -12,7 +16,14 @@ class MemphisTrustee:
             html = page.read().decode("utf-8")
             soup = BeautifulSoup(html, "html.parser")
             table = soup.find_all("td")
-            taxes = float(table[9].text.strip()[1:])
+            taxes = atof(table[9].text.strip()[1:])
             property.setCityTaxes(taxes)
         except:
             property.setCityTaxes(-1)
+    def test(self):
+        property = Property("06303400001", "Shelby")
+        self.searchProperty(property)
+        print(property.getCityTaxes())
+
+# memphis = MemphisTrustee()
+# memphis.test()

@@ -1,6 +1,7 @@
 class Property:
-    def __init__(self, parcelId):
+    def __init__(self, parcelId, county):
         self.parcelId = parcelId
+        self.county = county
         self.address = ""
         self.city = ""
         self.subdivision = ""
@@ -57,6 +58,7 @@ class Property:
         return self.countyTaxes
     def __str__(self):
         value = "Parcel ID: " + self.parcelId + "\n" + \
+                "County: " + self.county + "\n" + \
                 "Address: " + self.address + "\n" + \
                 "City: " + self.city + "\n" + \
                 "Subdivision: " + self.subdivision + "\n" + \
@@ -66,11 +68,11 @@ class Property:
                 "Mailing Line 1: " + self.mailingStreet + "\n" + \
                 "Mailing Line 2: " + self.mailingCity + "\n"
         if self.cityTaxes != -1.0:
-            value += "City Taxes: " + str(self.cityTaxes) + "\n"
+            value += "City Taxes: $" + str(self.cityTaxes) + "\n"
         else:
             value += "City Taxes: Not Available\n"
         if self.countyTaxes != -1.0:
-            value += "County Taxes: " + str(self.countyTaxes) + "\n"
+            value += "County Taxes: $" + str(self.countyTaxes) + "\n"
         else:
             value += "County Taxes: Not Available\n"
         return value
