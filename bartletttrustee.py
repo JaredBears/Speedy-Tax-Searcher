@@ -23,7 +23,7 @@ class BartlettTrustee:
         except:
             property.setCityTaxes(-1)
     def test(self):
-        property = Property("B0149M00007", "Shelby")
+        property = Property("B0149M00007", "TN", "Shelby")
         self.searchProperty(property)
         print(property.getCityTaxes())
 

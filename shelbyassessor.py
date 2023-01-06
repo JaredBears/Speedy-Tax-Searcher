@@ -1,3 +1,4 @@
+from locale import atof, setlocale, LC_NUMERIC
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from property import Property
@@ -5,6 +6,8 @@ from shelbytrustee import ShelbyTrustee
 from memphistrustee import MemphisTrustee
 from bartletttrustee import BartlettTrustee
 from germantowntrustee import GermantownTrustee
+
+setlocale(LC_NUMERIC, 'English_United States.1252')
 
 class ShelbyAssessor:
     url = "https://www.assessormelvinburgess.com/propertyDetails?parcelid="
@@ -28,6 +31,8 @@ class ShelbyAssessor:
             property.setOwner(self.getOwner(table))
             property.setMailingStreet(self.getMailingStreet(table))
             property.setMailingCity(self.getMailingCity(table))
+            property.setAppraisedValue(self.getAppraisal(table))
+            property.setAssessment(self.getAssessment(table))
             self.countyTrustee.searchProperty(property)
             if parcel[0] == '0':
                 self.memphisTrustee.searchProperty(property)
@@ -53,20 +58,30 @@ class ShelbyAssessor:
         return table[27].text.strip()
     def getMailingCity(self, table):
         return table[29].text.strip()
+    def getAppraisal(self, table):
+        return atof(table[40].text.strip()[1:])
+    def getAssessment(self, table):
+        return atof(table[42].text.strip()[1:])
 
     def test(self):
         memphis = Property("06303400001", "TN", "SHELBY")
         self.searchProperty(memphis)
         print(memphis)
+        print(memphis.toCSV())
+        print(memphis.toJSON())
 
-        bartlett = Property("B0149M00007", "TN", "SHELBY")
-        self.searchProperty(bartlett)
-        print(bartlett)
+        # bartlett = Property("B0149M00007", "TN", "SHELBY")
+        # self.searchProperty(bartlett)
+        # print(bartlett)
+        # print(bartlett.toCSV())
+        # print(bartlett.toJSON())
 
-        germantown = Property("G0221EH00027", "TN", "SHELBY")
-        self.searchProperty(germantown)
-        print(germantown)
+        # germantown = Property("G0221EH00027", "TN", "SHELBY")
+        # self.searchProperty(germantown)
+        # print(germantown)
+        # print(germantown.toCSV())
+        # print(germantown.toJSON())
         
 
-# shelby = ShelbyAssessor()
-# shelby.test()
+shelby = ShelbyAssessor()
+shelby.test()

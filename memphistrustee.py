@@ -21,7 +21,7 @@ class MemphisTrustee:
         except:
             property.setCityTaxes(-1)
     def test(self):
-        property = Property("06303400001", "Shelby")
+        property = Property("06303400001", "TN", "Shelby")
         self.searchProperty(property)
         print(property.getCityTaxes())
 

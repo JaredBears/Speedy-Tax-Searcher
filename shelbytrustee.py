@@ -27,7 +27,7 @@ class ShelbyTrustee:
         except:
             property.setCountyTaxes(-1)
     def test(self):
-        property = Property("G0221EH00027", "Shelby")
+        property = Property("G0221EH00027","TN", "Shelby")
         self.searchProperty(property)
         print(property.getCountyTaxes())
 
