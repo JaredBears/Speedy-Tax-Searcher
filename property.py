@@ -6,8 +6,7 @@ class Property:
         self.address = None
         self.city = None
         self.subdivision = None
-        self.lot = None
-        self.platbook_page = None
+        self.legal_description = None
         self.owner = None
         self.mailing_street = None
         self.mailing_city = None
@@ -24,24 +23,22 @@ class Property:
         self.city = " ".join(city.split())
     def setSubdivision(self, subdivision):
         self.subdivision = " ".join(subdivision.split())
-    def setLot(self, lot):
-        self.lot = " ".join(lot.split())
-    def setPlatBookPage(self, platBookPage):
-        self.platbook_page = " ".join(platBookPage.split())
+    def setLegalDescription(self, legal_description):
+        self.legal_description = legal_description
     def setOwner(self, owner):
         self.owner = " ".join(owner.split())
-    def setMailingStreet(self, mailingStreet):
-        self.mailing_street = " ".join(mailingStreet.split())
-    def setMailingCity(self, mailingCity):
-        self.mailing_city = " ".join(mailingCity.split())
+    def setMailingStreet(self, mailing_street):
+        self.mailing_street = " ".join(mailing_street.split())
+    def setMailingCity(self, mailing_city):
+        self.mailing_city = " ".join(mailing_city.split())
     def setAssessment(self, assessment):
         self.assessment = assessment
-    def setAppraisedValue(self, appraisedValue):
-        self.appraised_value = appraisedValue
-    def setCityTaxes(self, cityTaxes):
-        self.city_taxes = cityTaxes
-    def setCountyTaxes(self, countyTaxes):
-        self.county_taxes = countyTaxes
+    def setAppraisedValue(self, appraised_value):
+        self.appraised_value = appraised_value
+    def setCityTaxes(self, city_taxes):
+        self.city_taxes = city_taxes
+    def setCountyTaxes(self, county_taxes):
+        self.county_taxes = county_taxes
     def setNotes(self, notes):
         self.notes = notes
 
@@ -58,10 +55,8 @@ class Property:
         return self.city
     def getSubdivision(self):
         return self.subdivision
-    def getLot(self):
-        return self.lot
-    def getPlatBookPage(self):
-        return self.platbook_page
+    def getLegalDescription(self):
+        return self.legal_description
     def getOwner(self):
         return self.owner
     def getMailingStreet(self):
@@ -87,8 +82,7 @@ class Property:
         if self.city: value+= "City: " + self.city + "\n"
         if self.address: value+= "Address: " + self.address + "\n"
         if self.subdivision: value += "Subdivision: " + self.subdivision + "\n"
-        if self.lot: value += "Lot: " + self.lot + "\n"
-        if self.platbook_page: value += "Plat Book Page: " + self.platbook_page + "\n"
+        if self.legal_description: value += "Legal Description: " + self.legal_description + "\n"
         if self.owner: value += "Owner: " + self.owner + "\n"
         if self.mailing_street: value += "Mailing Line 1: " + self.mailing_street + "\n"
         if self.mailing_city: value += "Mailing Line 2: " + self.mailing_city + "\n"
@@ -113,10 +107,10 @@ class Property:
 
     # Return in CSV format:
     def toCSV(self):
-        value = "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.parcel_id, self.state, self.county, self.city, self.address, self.subdivision, self.lot, self.platbook_page, self.owner, self.mailing_street, self.mailing_city, self.assessment, self.appraised_value, self.city_taxes, self.county_taxes, self.notes)
+        value = "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.parcel_id, self.state, self.county, self.city, self.address, self.legal_description, self.owner, self.mailing_street, self.mailing_city, self.assessment, self.appraised_value, self.city_taxes, self.county_taxes, self.notes)
         return value
 
     # Return in JSON format:
     def toJSON(self):
-        value = "{{\n    \"parcelId\": \"{}\", \n    \"state\": \"{}\", \n    \"county\": \"{}\", \n    \"city\": \"{}\", \n    \"address\": \"{}\", \n    \"subdivision\": \"{}\", \n    \"lot\": \"{}\", \n    \"platbookPage\": \"{}\", \n    \"owner\": \"{}\", \n    \"mailingStreet\": \"{}\", \n    \"mailingCity\": \"{}\", \n    \"assessment\": {}, \n    \"appraisedValue\": {}, \n    \"cityTaxes\": {}, \n    \"countyTaxes\": {}, \n    \"notes\": \"{}\"\n}}".format(self.parcel_id, self.state, self.county, self.city, self.address, self.subdivision, self.lot, self.platbook_page, self.owner, self.mailing_street, self.mailing_city, self.assessment, self.appraised_value, self.city_taxes, self.county_taxes, self.notes)
+        value = "{{\n    \"parcelId\": \"{}\", \n    \"state\": \"{}\", \n    \"county\": \"{}\", \n    \"city\": \"{}\", \n    \"address\": \"{}\", \n    \"legalDescription\": \"{}\", \n    \"owner\": \"{}\", \n    \"mailingStreet\": \"{}\", \n    \"mailingCity\": \"{}\", \n    \"assessment\": {}, \n    \"appraisedValue\": {}, \n    \"cityTaxes\": {}, \n    \"countyTaxes\": {}, \n    \"notes\": \"{}\"\n}}".format(self.parcel_id, self.state, self.county, self.city, self.address, self.legal_description, self.owner, self.mailing_street, self.mailing_city, self.assessment, self.appraised_value, self.city_taxes, self.county_taxes, self.notes)
         return value

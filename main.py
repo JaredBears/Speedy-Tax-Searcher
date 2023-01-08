@@ -1,7 +1,9 @@
-import shelbyassessor
-import property
+from ildevnet import IlDevNet
+from shelbyassessor import ShelbyAssessor
+from property import property
 
 def main():
+
     while(True):
         # state = input("Enter state (or exit to quit): ")
         # if state.lower() == "exit":
@@ -12,7 +14,7 @@ def main():
         parcelId = input("Enter parcel ID (or exit to quit): ")
         if parcelId.lower() == "exit":
             break
-        assessor = shelbyassessor.ShelbyAssessor()
+        assessor = ShelbyAssessor()
         prop = property.Property(parcelId, state, county)
         assessor.searchProperty(prop)
         print(prop)

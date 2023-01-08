@@ -13,6 +13,14 @@ class GermantownTrustee:
         browser = mechanicalsoup.StatefulBrowser()
         browser.open(self.url)
         browser.select_form("form")
+        browser["parcel.parcelNumber1"] = district
+        browser["parcel.parcelNumber2"] = block
+        browser["parcel.parcelNumber3"] = sub
+        browser["parcel.parcelNumber4"] = lot
+        browser.submit_selected("sbmtBtn")
+        page = browser.get_current_page()
+        print(page)
+
         
 
     def test(self):

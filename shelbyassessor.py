@@ -1,11 +1,11 @@
 from locale import atof, setlocale, LC_NUMERIC
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-from property import Property
 from shelbytrustee import ShelbyTrustee
 from memphistrustee import MemphisTrustee
 from bartletttrustee import BartlettTrustee
 from germantowntrustee import GermantownTrustee
+from property import Property
 
 setlocale(LC_NUMERIC, 'English_United States.1252')
 
@@ -25,10 +25,7 @@ class ShelbyAssessor:
             table = soup.find_all("td")
             property.setAddress(self.getAddress(table))
             property.setCity(self.getCity(table))
-            property.setSubdivision(self.getSubdivision(table))
-            property.setLot(self.getLot(table))
-            property.setPlatBookPage(self.getPlatBookPage(table))
-            property.setOwner(self.getOwner(table))
+            property.setLegalDescription(self.getLot(table) + " - " + self.getSubdivision(table) + " - " + self.getPlatBookPage(table))
             property.setMailingStreet(self.getMailingStreet(table))
             property.setMailingCity(self.getMailingCity(table))
             property.setAppraisedValue(self.getAppraisal(table))
@@ -41,7 +38,7 @@ class ShelbyAssessor:
             elif parcel[0] == 'G':
                 self.germantownTrustee.searchProperty(property)
         except:
-            property.setNotes("Error: Could not find all property information\nPlease verify details.")
+            property.setNotes("Error: Could not find all property information - Please verify details.")
     def getAddress(self, table):
         return table[3].text.strip()
     def getCity(self, table):
@@ -83,5 +80,4 @@ class ShelbyAssessor:
         # print(germantown.toJSON())
         
 
-shelby = ShelbyAssessor()
-shelby.test()
+ShelbyAssessor().test()
